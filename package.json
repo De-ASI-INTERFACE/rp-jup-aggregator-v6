@@ -9,7 +9,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "turbo": "^1.13.0",
+    "turbo": "^2.9.18",
     "typescript": "^5.4.0"
   },
   "author": "Richard Patterson (@De-ASI-INTERFACE)",
