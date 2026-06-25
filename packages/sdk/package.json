@@ -2,11 +2,30 @@
   "name": "@rp/sdk",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "scripts": { "build": "tsc", "test": "jest" },
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --passWithNoTests"
+  },
   "dependencies": {
     "@solana/web3.js": "^1.91.0",
     "cross-fetch": "^4.0.0",
     "bs58": "^5.0.0"
   },
-  "devDependencies": { "typescript": "^5.4.0", "jest": "^29.0.0", "ts-jest": "^29.0.0" }
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "@types/jest": "^29.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": ["**/__tests__/**/*.test.ts"],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    }
+  }
 }
