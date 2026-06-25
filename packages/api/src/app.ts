@@ -1,7 +1,7 @@
 /**
  * UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
  * Author: Richard Patterson (@De-ASI-INTERFACE)
- * RP-JUP-EXECUTIONER-V1 — Express app factory (separated from listen() for testability)
+ * RP-JUP-EXECUTIONER — Express app factory (separated from listen() for testability)
  */
 import 'dotenv/config';
 import express from 'express';

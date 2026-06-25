@@ -1,11 +1,11 @@
-# rp-jup-executioner-v1
+# rp-jup-executioner
 
 > **UNIQUE CODE IDENTIFIER:** RP-DEASI-JUP-2026-0619-001  
 > **Author:** Richard Patterson (@De-ASI-INTERFACE | @QuantumTradingInfinity | @richy.ai)  
 > **Deployer Wallet:** `CuAjiyp7Rfj4vvjQ8JWVMLeXYYumaTYKpZf9oWs2A4my`  
 > **Network:** Solana Mainnet-Beta
 
-A Jupiter executioner v2.0-compatible repo for HTTP 402 payment-gated swap routing on Solana.
+A Jupiter Aggregator V6-compatible monorepo for HTTP 402 payment-gated swap routing on Solana.
 
 ## Packages
 

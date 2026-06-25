@@ -1,7 +1,7 @@
 /**
  * UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
  * Swap Route — Richard Patterson (@De-ASI-INTERFACE)
- * Project: RP-JUP-EXECUTIONER-V1
+ * Project: RP-JUP-EXECUTIONER
  */
 import { Router, Request, Response } from 'express';
 import { Connection, Keypair } from '@solana/web3.js';
@@ -10,18 +10,6 @@ import { getQuote, buildSwapTransaction, executeSwap } from '@rp/sdk';
 
 export const swapRouter = Router();
 
-/**
- * assertSlippage — pre-execution guard.
- *
- * Jupiter returns `otherAmountThreshold` as the minimum output (ExactIn) or
- * maximum input (ExactOut) that the route guarantees given the requested
- * slippageBps. If the live outAmount already breaches that threshold before
- * we even send the transaction, we reject early and save the priority fee.
- *
- * @param outAmount              Quoted output in base units (string from Jupiter)
- * @param otherAmountThreshold   Jupiter's guaranteed minimum output (string)
- * @param swapMode               'ExactIn' | 'ExactOut'
- */
 function assertSlippage(
   outAmount: string,
   otherAmountThreshold: string,
@@ -64,7 +52,6 @@ swapRouter.post('/', async (req: Request, res: Response) => {
       slippageBps: slippageBps ?? 50,
     });
 
-    // ── SLIPPAGE GUARD ───────────────────────────────────────────────────
     assertSlippage(
       String(quote.outAmount),
       String(quote.otherAmountThreshold),
