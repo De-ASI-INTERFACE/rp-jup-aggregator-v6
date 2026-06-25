@@ -5,7 +5,7 @@
 > **Deployer Wallet:** `CuAjiyp7Rfj4vvjQ8JWVMLeXYYumaTYKpZf9oWs2A4my`  
 > **Network:** Solana Mainnet-Beta
 
-A Jupiter Aggregator V6-compatible monorepo for HTTP 402 payment-gated swap routing on Solana.
+A Jupiter executioner v2.0-compatible repo for HTTP 402 payment-gated swap routing on Solana.
 
 ## Packages
 
