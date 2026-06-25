@@ -12,15 +12,33 @@ on:
         description: 'Reason for manual trigger (e.g. hotfix verification)'
         required: false
         default: 'Manual CI run'
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          # Cache keyed to package-lock.json for deterministic layer reuse
           cache: npm
-      - run: npm install
-      - run: npm run build
-      - run: npm run test
+          cache-dependency-path: package-lock.json
+
+      # npm ci: frozen install — aborts if package-lock.json is missing or out of sync
+      # This is the production-grade install path; never use `npm install` in CI
+      - name: Install dependencies (frozen lockfile)
+        run: npm ci
+
+      - name: Build all workspaces
+        run: npm run build
+
+      - name: Run test suite
+        run: npm run test
+
+      # Integrity audit as a separate, non-blocking advisory step
+      # Change `continue-on-error: true` to false once dep tree is fully hydrated
+      - name: Security audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
