@@ -6,6 +6,12 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual trigger (e.g. hotfix verification)'
+        required: false
+        default: 'Manual CI run'
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
