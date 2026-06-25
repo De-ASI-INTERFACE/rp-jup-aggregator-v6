@@ -1,5 +1,5 @@
 {
-  "name": "rp-jup-aggregator-v6",
+  "name": "rp-jup-executioner-v1",
   "private": true,
   "workspaces": ["packages/*", "apps/*"],
   "scripts": {

@@ -1,6 +1,7 @@
 /**
  * UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
  * Swap Route — Richard Patterson (@De-ASI-INTERFACE)
+ * Project: RP-JUP-EXECUTIONER-V1
  */
 import { Router, Request, Response } from 'express';
 import { Connection, Keypair } from '@solana/web3.js';
@@ -18,8 +19,8 @@ export const swapRouter = Router();
  * we even send the transaction, we reject early and save the priority fee.
  *
  * @param outAmount              Quoted output in base units (string from Jupiter)
- * @param otherAmountThreshold   Jupiter’s guaranteed minimum output (string)
- * @param swapMode               ‘ExactIn’ | ‘ExactOut’
+ * @param otherAmountThreshold   Jupiter's guaranteed minimum output (string)
+ * @param swapMode               'ExactIn' | 'ExactOut'
  */
 function assertSlippage(
   outAmount: string,
@@ -64,8 +65,6 @@ swapRouter.post('/', async (req: Request, res: Response) => {
     });
 
     // ── SLIPPAGE GUARD ───────────────────────────────────────────────────
-    // Fail fast before building or broadcasting the transaction.
-    // On-chain slippage failures are silent and still burn priority fees.
     assertSlippage(
       String(quote.outAmount),
       String(quote.otherAmountThreshold),
