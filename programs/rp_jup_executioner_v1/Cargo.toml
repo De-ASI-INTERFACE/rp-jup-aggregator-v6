@@ -1,0 +1,24 @@
+[package]
+name = "rp-jup-executioner-v1"
+version = "1.0.0"
+edition = "2021"
+description = "RP-JUP-EXECUTIONER-V1 — Native Anchor swap execution program by Richard Patterson (@De-ASI-INTERFACE)"
+
+# UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
+# Author: Richard Patterson (@De-ASI-INTERFACE | @QuantumTradingInfinity | @richy.ai)
+# Deployer: CuAjiyp7Rfj4vvjQ8JWVMLeXYYumaTYKpZf9oWs2A4my
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "rp_jup_executioner_v1"
+
+[features]
+no-entrypoint = []
+no-idl = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.30.1"
+anchor-spl = { version = "0.30.1", features = ["token"] }
+spl-token = { version = "4.0", features = ["no-entrypoint"] }

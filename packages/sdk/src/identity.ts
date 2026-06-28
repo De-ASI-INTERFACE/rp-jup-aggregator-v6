@@ -13,5 +13,5 @@ export const USDC = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
 export const USDT = 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB';
 
 export function accreditationBlock(): string {
-  return `RP-JUP-AGGREGATOR-V6 | ${OWNER} | ${ENTITY} | ${UID}`;
+  return `RP-JUP-EXECUTIONER | ${OWNER} | ${ENTITY} | ${UID}`;
 }

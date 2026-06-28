@@ -1,5 +1,5 @@
 {
-  "name": "rp-jup-aggregator-v6",
+  "name": "rp-jup-executioner",
   "private": true,
   "workspaces": ["packages/*", "apps/*"],
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "turbo": "^2.10.0",
+    "turbo": "^2.10.0"
     "typescript": "^5.4.0"
   },
   "author": "Richard Patterson (@De-ASI-INTERFACE)",

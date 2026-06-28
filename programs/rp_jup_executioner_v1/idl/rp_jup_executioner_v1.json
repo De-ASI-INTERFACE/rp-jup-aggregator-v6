@@ -1,0 +1,114 @@
+{
+  "version": "1.0.0",
+  "name": "rp_jup_executioner_v1",
+  "metadata": {
+    "name": "RP-JUP-EXECUTIONER-V1",
+    "uid": "RP-DEASI-JUP-2026-0619-001",
+    "author": "Richard Patterson (@De-ASI-INTERFACE | @QuantumTradingInfinity | @richy.ai)",
+    "deployer": "CuAjiyp7Rfj4vvjQ8JWVMLeXYYumaTYKpZf9oWs2A4my",
+    "network": "mainnet-beta",
+    "address": "ExecVx1RPJupAGGREGATORDeASI111111111111111"
+  },
+  "instructions": [
+    {
+      "name": "initialize",
+      "docs": ["Creates the ExecutionState PDA tracking protocol metadata and authority."],
+      "accounts": [
+        { "name": "executionState", "isMut": true, "isSigner": false, "docs": ["PDA storing protocol state"] },
+        { "name": "authority", "isMut": true, "isSigner": true, "docs": ["Deployer / protocol authority"] },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "feeBps", "type": "u64" },
+        { "name": "maxSlippageBps", "type": "u64" }
+      ]
+    },
+    {
+      "name": "executeSwap",
+      "docs": ["Validates slippage, collects protocol fee, increments counters, authorises Jupiter CPI."],
+      "accounts": [
+        { "name": "executionState", "isMut": true, "isSigner": false },
+        { "name": "user", "isMut": true, "isSigner": true },
+        { "name": "userTokenIn", "isMut": true, "isSigner": false, "docs": ["User input token account"] },
+        { "name": "feeVault", "isMut": true, "isSigner": false, "docs": ["Protocol fee treasury token account"] },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "amountIn", "type": "u64" },
+        { "name": "minimumAmountOut", "type": "u64" },
+        { "name": "slippageBps", "type": "u64" }
+      ]
+    },
+    {
+      "name": "updateFee",
+      "docs": ["Authority-gated fee adjustment. Maximum 500 bps."],
+      "accounts": [
+        { "name": "executionState", "isMut": true, "isSigner": false },
+        { "name": "authority", "isMut": false, "isSigner": true }
+      ],
+      "args": [
+        { "name": "newFeeBps", "type": "u64" }
+      ]
+    },
+    {
+      "name": "updateMaxSlippage",
+      "docs": ["Authority-gated slippage ceiling adjustment. Maximum 1000 bps."],
+      "accounts": [
+        { "name": "executionState", "isMut": true, "isSigner": false },
+        { "name": "authority", "isMut": false, "isSigner": true }
+      ],
+      "args": [
+        { "name": "newMaxSlippageBps", "type": "u64" }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ExecutionState",
+      "docs": ["On-chain state PDA for the RP-JUP-EXECUTIONER-V1 protocol"],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "authority", "type": "publicKey", "docs": ["Protocol authority (deployer)"] },
+          { "name": "feeBps", "type": "u64", "docs": ["Protocol fee in basis points (default: 20)"] },
+          { "name": "maxSlippageBps", "type": "u64", "docs": ["Max allowed slippage bps (default: 300)"] },
+          { "name": "totalSwaps", "type": "u64", "docs": ["Cumulative swap execution count"] },
+          { "name": "totalVolumeLamports", "type": "u64", "docs": ["Cumulative input volume in lamports"] },
+          { "name": "uid", "type": "string", "docs": ["UID provenance string"] },
+          { "name": "bump", "type": "u8", "docs": ["PDA canonical bump"] }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "ProgramInitialized",
+      "fields": [
+        { "name": "authority", "type": "publicKey", "index": false },
+        { "name": "feeBps", "type": "u64", "index": false },
+        { "name": "maxSlippageBps", "type": "u64", "index": false },
+        { "name": "uid", "type": "string", "index": false }
+      ]
+    },
+    {
+      "name": "SwapExecuted",
+      "fields": [
+        { "name": "user", "type": "publicKey", "index": true },
+        { "name": "amountIn", "type": "u64", "index": false },
+        { "name": "amountAfterFee", "type": "u64", "index": false },
+        { "name": "minimumAmountOut", "type": "u64", "index": false },
+        { "name": "slippageBps", "type": "u64", "index": false },
+        { "name": "feeAmount", "type": "u64", "index": false },
+        { "name": "swapIndex", "type": "u64", "index": false },
+        { "name": "uid", "type": "string", "index": false }
+      ]
+    }
+  ],
+  "errors": [
+    { "code": 6000, "name": "SlippageExceeded", "msg": "Slippage bps exceeds protocol maximum" },
+    { "code": 6001, "name": "FeeTooHigh", "msg": "Fee bps exceeds maximum allowed (500 bps)" },
+    { "code": 6002, "name": "SlippageTooHigh", "msg": "Max slippage bps exceeds ceiling (1000 bps)" },
+    { "code": 6003, "name": "ZeroAmount", "msg": "Amount must be greater than zero" },
+    { "code": 6004, "name": "MathOverflow", "msg": "Arithmetic overflow" }
+  ]
+}

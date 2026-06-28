@@ -1,6 +1,7 @@
 /**
  * UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
  * Jupiter V6 Quote Helper — Richard Patterson (@De-ASI-INTERFACE)
+ * Project: RP-JUP-EXECUTIONER
  */
 import fetch from 'cross-fetch';
 

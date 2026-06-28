@@ -1,0 +1,26 @@
+[features]
+seeds = true
+skip-lint = false
+
+[programs.mainnet]
+rp_jup_executioner_v1 = "ExecVx1RPJupAGGREGATORDeASI111111111111111"
+
+[programs.localnet]
+rp_jup_executioner_v1 = "ExecVx1RPJupAGGREGATORDeASI111111111111111"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "mainnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[workspace]
+members = ["programs/*"]
+
+# UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
+# Author: Richard Patterson (@De-ASI-INTERFACE)
+# Deployer: CuAjiyp7Rfj4vvjQ8JWVMLeXYYumaTYKpZf9oWs2A4my

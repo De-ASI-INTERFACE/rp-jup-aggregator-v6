@@ -1,6 +1,6 @@
 /**
  * UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
- * rp-jup-aggregator-v6 Swap Bot — Richard Patterson (@De-ASI-INTERFACE)
+ * RP-JUP-EXECUTIONER Swap Bot — Richard Patterson (@De-ASI-INTERFACE)
  * Deployer: CuAjiyp7Rfj4vvjQ8JWVMLeXYYumaTYKpZf9oWs2A4my
  */
 import 'dotenv/config';
