@@ -14,7 +14,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.0",
     "@solana/web3.js": "^1.91.0",
-    "express-rate-limit": "^7.3.0"
+    "express-rate-limit": "^7.3.0",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
@@ -26,7 +27,8 @@
     "ts-jest": "^29.0.0",
     "@types/jest": "^29.0.0",
     "supertest": "^7.0.0",
-    "@types/supertest": "^6.0.0"
+    "@types/supertest": "^6.0.0",
+    "@types/winston": "^2.4.4"
   },
   "jest": {
     "preset": "ts-jest",
