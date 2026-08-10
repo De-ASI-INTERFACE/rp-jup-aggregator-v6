@@ -1,17 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": ".next",
-    "rootDir": "src",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "preserve",
-    "incremental": true,
+    "module": "esnext",
     "moduleResolution": "bundler",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "outDir": ".next",
     "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".next"]
+  "include": ["src"]
 }

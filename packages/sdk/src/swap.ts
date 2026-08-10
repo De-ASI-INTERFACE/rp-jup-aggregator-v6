@@ -1,16 +1,34 @@
 /**
  * UNIQUE CODE IDENTIFIER: RP-DEASI-JUP-2026-0619-001
  * Jupiter V6 Swap Helper — Richard Patterson (@De-ASI-INTERFACE)
- * Project: RP-JUP-EXECUTIONER
+ * Typed SwapInstructionsResponse — audit fix 2026-08-09
  */
 import fetch from 'cross-fetch';
-import {
-  Connection,
-  VersionedTransaction,
-} from '@solana/web3.js';
+import { Connection, VersionedTransaction } from '@solana/web3.js';
 import { QuoteResponse } from './quote';
 
 const JUP_QUOTE_API = process.env.JUP_QUOTE_API || 'https://quote-api.jup.ag/v6';
+
+export interface JupiterAccountMeta {
+  pubkey: string;
+  isSigner: boolean;
+  isWritable: boolean;
+}
+
+export interface JupiterInstruction {
+  programId: string;
+  accounts: JupiterAccountMeta[];
+  data: string;
+}
+
+export interface SwapInstructionsResponse {
+  tokenLedgerInstruction?: JupiterInstruction;
+  computeBudgetInstructions: JupiterInstruction[];
+  setupInstructions: JupiterInstruction[];
+  swapInstruction: JupiterInstruction;
+  cleanupInstruction?: JupiterInstruction;
+  addressLookupTableAddresses: string[];
+}
 
 export async function buildSwapTransaction(
   quoteResponse: QuoteResponse,
@@ -55,12 +73,12 @@ export async function executeSwap(
 export async function getSwapInstructions(
   quoteResponse: QuoteResponse,
   userPublicKey: string,
-): Promise<{ swapInstruction: unknown; addressLookupTableAddresses: string[]; computeBudgetInstructions: unknown[] }> {
+): Promise<SwapInstructionsResponse> {
   const res = await fetch(`${JUP_QUOTE_API}/swap-instructions`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ quoteResponse, userPublicKey }),
   });
   if (!res.ok) throw new Error(`Swap instructions error: ${res.status}`);
-  return res.json() as Promise<{ swapInstruction: unknown; addressLookupTableAddresses: string[]; computeBudgetInstructions: unknown[] }>;
+  return res.json() as Promise<SwapInstructionsResponse>;
 }
